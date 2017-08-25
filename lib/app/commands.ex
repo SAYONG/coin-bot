@@ -4,6 +4,25 @@ defmodule App.Commands do
 
   alias App.Commands.Outside
 
+  command "replykb" do
+    IO.puts update.message.message_id
+    send_message "Hello, " <> update.message.from.username
+    send_message "Try to generate keyboard:",
+      reply_markup: %Model.ReplyKeyboardMarkup{
+        keyboard: [
+          ["X", "O"],
+        ]
+      },
+      resize_keyboard: true,
+      one_time_keyboard: true,
+      selective: true
+
+  end
+
+  command "testfetch" do
+    response = HTTPotion.get "https://api.coindesk.com/v1/bpi/historical/close.json?start=2013-09-01&end=2013-09-05"
+    send_message "Hello, " <> update.message.from.username <> response.body
+  end
   # You can create commands in the format `/command` by
   # using the macro `command "command"`.
   command ["hello", "hi"] do

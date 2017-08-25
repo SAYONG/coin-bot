@@ -13,12 +13,15 @@ defmodule App.Mixfile do
   end
 
   def application do
-    [applications: [:logger, :nadia],
+    [applications: [:logger, :nadia, :httpotion],
      mod: {App, []}]
   end
 
   defp deps do
-    [{:nadia, "~> 0.4.1"}]
+    [
+      {:nadia, "~> 0.4.1"},
+      {:httpotion, "~> 3.0.2"}
+    ]
   end
 
   defp aliases do

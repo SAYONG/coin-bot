@@ -13,14 +13,19 @@ defmodule App.Mixfile do
   end
 
   def application do
-    [applications: [:logger, :nadia, :httpotion],
+    [applications: applications(Mix.env),
      mod: {App, []}]
   end
+
+defp applications(:dev), do: applications(:all) ++ [:remix]
+defp applications(_all), do: [:logger, :nadia, :httpotion]
 
   defp deps do
     [
       {:nadia, "~> 0.4.1"},
-      {:httpotion, "~> 3.0.2"}
+      {:httpotion, "~> 3.0.2"},
+      {:timex, "~> 3.0"},
+      {:remix, "~> 0.0.1", only: :dev},
     ]
   end
 

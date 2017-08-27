@@ -18,7 +18,6 @@ defmodule App.Commands do
     {:ok, date_format} = Date.from_iso8601(date)
     IO.inspect date_format
     send_message "Your start date is " <> date
-
   end
 
   command "fetchPrice" do
@@ -36,7 +35,6 @@ defmodule App.Commands do
   end
 
   command "testfetch" do
-    response = HTTPotion.get "https://api.coindesk.com/v1/bpi/historical/close.json?start=2013-09-01&end=2013-09-05"
     send_message "Hello, " <> update.message.from.username
   end
   # You can create commands in the format `/command` by

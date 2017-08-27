@@ -6,4 +6,8 @@ config :app,
 config :nadia,
   token: ""
 
+config :remix,
+  escript: true,
+  silent: true
+
 import_config "#{Mix.env}.exs"

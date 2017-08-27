@@ -4,24 +4,40 @@ defmodule App.Commands do
 
   alias App.Commands.Outside
 
-  command "replykb" do
+  command "start" do
     IO.puts update.message.message_id
+    IO.inspect update.message
+    send_message "Just start no nothing else."
+  end
+
+  command "startdate" do
+    IO.puts update.message.message_id
+    input = update.message.text
+    IO.puts input
+    [_, date] = String.split(input)
+    {:ok, date_format} = Date.from_iso8601(date)
+    IO.inspect date_format
+    send_message "Your start date is " <> date
+
+  end
+
+  command "fetchPrice" do
     send_message "Hello, " <> update.message.from.username
-    send_message "Try to generate keyboard:",
+    send_message "Please select number of years for look historical:",
       reply_markup: %Model.ReplyKeyboardMarkup{
         keyboard: [
-          ["X", "O"],
-        ]
-      },
-      resize_keyboard: true,
-      one_time_keyboard: true,
-      selective: true
+          ["/hello", "O"],
+        ],
+        resize_keyboard: true,
+        one_time_keyboard: true,
+        selective: true
+      }
 
   end
 
   command "testfetch" do
     response = HTTPotion.get "https://api.coindesk.com/v1/bpi/historical/close.json?start=2013-09-01&end=2013-09-05"
-    send_message "Hello, " <> update.message.from.username <> response.body
+    send_message "Hello, " <> update.message.from.username
   end
   # You can create commands in the format `/command` by
   # using the macro `command "command"`.
